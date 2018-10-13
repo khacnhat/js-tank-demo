@@ -33,52 +33,68 @@ function Bullet(x, y, direction, board) {
     };
 
     self.moveRight = function () {
-        if(self.x <= self.board.getWidth() - self.speed - BULLET_RADIUS){
+        if( self.x <= self.board.getWidth() - self.speed - BULLET_RADIUS){
             self.x += self.speed;
             self.board.render();
             setTimeout(self.moveRight, 50);
+            self.checkCollision();
         } else {
             self.board.removeBullet(self);
             self.board.render();
-            self = null;
         }
     };
 
     self.moveLeft = function () {
-        if(self.x >= self.speed) {
+        if (self.x >= self.speed) {
             self.x -= self.speed;
             self.board.render();
             setTimeout(self.moveLeft, 50);
+            self.checkCollision();
         } else {
             self.board.removeBullet(self);
             self.board.render();
-            self = null;
         }
     };
 
     self.moveDown = function () {
-        if(self.y <= self.board.getHeight() - self.speed - BULLET_RADIUS){
+        if (self.y <= self.board.getHeight() - self.speed - BULLET_RADIUS) {
             self.y += self.speed;
             self.board.render();
             setTimeout(self.moveDown, 50);
+            self.checkCollision();
         } else {
             self.board.removeBullet(self);
             self.board.render();
-            self = null;
         }
     };
 
     self.moveUp = function () {
-        if(self.y >= self.speed){
+        if (self.y >= self.speed) {
             self.y -= self.speed;
             self.board.render();
             setTimeout(self.moveUp, 50);
+            self.checkCollision();
         } else {
             self.board.removeBullet(self);
             self.board.render();
-            self = null;
         }
+    };
 
+    self.checkCollision = function () {
+        var opponent = null;
+        self.board.getOpponents().forEach(function (tank) {
+            var distanceX = Math.abs((self.x + BULLET_RADIUS/2) - (tank.getX() + TANK_WIDTH/2));
+            var distanceY = Math.abs((self.y + BULLET_RADIUS/2) - (tank.getY() + TANK_HEIGHT/2));
+            if(distanceX <= (BULLET_RADIUS + TANK_WIDTH)/2 && distanceY <= (BULLET_RADIUS + TANK_HEIGHT)/2){
+                opponent = tank;
+                self.board.removeBullet(self);
+                self.board.render();
+            }
+        });
+
+        if(opponent !== null){
+            self.board.removeOpponent(opponent);
+        }
     };
 
     self.getX = function () {

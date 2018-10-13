@@ -3,9 +3,12 @@ function GameBoard(canvas) {
     self.canvas = canvas;
     self.tank = new Tank(50 ,50, 'green', DIRECTION_DOWN, self);
     self.bullets = [];
-    self.oponents = [
-        new Tank(200, 200, 'yellow', DIRECTION_DOWN, self),
-        new Tank(100, 300, 'yellow', DIRECTION_UP, self)
+    self.opponents = [
+        new Tank(200, 400, 'yellow', DIRECTION_DOWN, self),
+        new Tank(100, 300, 'yellow', DIRECTION_UP, self),
+        new Tank(300, 300, 'yellow', DIRECTION_UP, self),
+        new Tank(50, 350, 'yellow', DIRECTION_UP, self),
+        new Tank(200, 50, 'yellow', DIRECTION_UP, self)
     ];
 
     self.render = function () {
@@ -15,7 +18,7 @@ function GameBoard(canvas) {
         self.bullets.forEach(function (bullet) {
             bullet.render();
         });
-        self.oponents.forEach(function (t) {
+        self.opponents.forEach(function (t) {
             t.render();
         });
     };
@@ -55,6 +58,10 @@ function GameBoard(canvas) {
         return self.canvas;
     };
 
+    self.getOpponents = function () {
+        return self.opponents;
+    };
+
     self.addBullet = function (bullet) {
         self.bullets.push(bullet);
     };
@@ -69,6 +76,19 @@ function GameBoard(canvas) {
         }
         if (index !== -1){
             self.bullets.splice(index, 1);
+        }
+    };
+
+    self.removeOpponent = function (opponent) {
+        var index = -1;
+        for(var i = 0; i < self.opponents.length; i++){
+            if(self.opponents[i] === opponent){
+                index = i;
+                break;
+            }
+        }
+        if (index !== -1){
+            self.opponents.splice(index, 1);
         }
     }
 }

@@ -82,5 +82,13 @@ function Tank(x, y, color, direction, board) {
         var bullet = new Bullet(self.x + TANK_WIDTH/2, self.y + TANK_HEIGHT/2, self.direction, self.board);
         self.board.addBullet(bullet);
         bullet.move();
-    }
+    };
+
+    self.getX = function () {
+        return self.x;
+    };
+
+    self.getY = function () {
+        return self.y;
+    };
 }
