@@ -1,6 +1,8 @@
 ## Tank Game for demo at CodeGym
 Hướng dẫn làm ứng dụng xe tăng
 
+Xem demo: https://khacnhat.github.io/js-tank-demo/
+
 ##### 1. Tạo các file và các lớp cần thiết
 * File index.html chứa thẻ canvas và nhúng các file .js khác
 * File constants.js chứa các hằng số
